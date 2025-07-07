@@ -135,10 +135,8 @@ ul.task-list li input[type="checkbox"] {
 <p>The core framework for this analysis implements a similar framework to the popular advanced NBA statistic <a href="https://supermariogiacomazzo.github.io/STOR538_WEBSITE/Articles/Basketball/Basketball_Sill.pdf">RAPM</a>. The goal of RAPM is to estimate each player’s impact on their team’s net scoring margin while they’re playing. The original ridge regression approach has a key limitation of using a single global variance for all players. By calculating these player impacts through bayesian simulation in a language like <a href="https://mc-stan.org/">STAN</a>, separate variance components can be used for different groups of players.</p>
 <p>While RAPM is calculated with <a href="https://data.scorenetwork.org/basketball/nba-rapm-data.html">player combinations and stint scoring rate data</a>, the proposed football <strong>BLUE</strong> (<strong>B</strong>ayesian <strong>L</strong>earned <strong>U</strong>nit <strong>E</strong>fficiency) ratings are calculated at the play level.<br>
 The design matrix contains the columns:</p>
-<p>The response variable Y</p>
-<ul>
-<li><a href="https://www.the33rdteam.com/epa-explained/">Expected Points Added</a> (EPA). EPA was chosen over yards to measure team efficiency since it is:</li>
-</ul>
+<p>The response variable Y:</p>
+<p><a href="https://www.the33rdteam.com/epa-explained/">Expected Points Added</a> (EPA). EPA was chosen over yards to measure team efficiency since it is:</p>
 <p><strong>Context Aware</strong>: Accounts for field position, down, and distance</p>
 <p><strong>Predictive</strong>: Stronger correlation with future performance</p>
 <p><strong>Granular</strong>: Available for every play, not just drives or games</p>
@@ -214,7 +212,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -223,7 +221,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -232,7 +230,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -241,7 +239,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -255,7 +253,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -264,7 +262,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -273,7 +271,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -282,7 +280,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -294,7 +292,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -303,7 +301,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -312,7 +310,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -321,7 +319,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -333,7 +331,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -342,7 +340,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -351,7 +349,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -360,7 +358,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -372,7 +370,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -381,7 +379,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -390,7 +388,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -399,7 +397,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
