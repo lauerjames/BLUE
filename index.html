@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0022)http://localhost:5800/ -->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-
+<meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -10,7 +9,7 @@
 <meta name="author" content="James Lauer">
 
 <title>BLUE: A Bayesian Approach to College Football Ratings</title>
-<style class="anchorjs"></style><style>
+<style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -25,76 +24,76 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="./index_files/clipboard.min.js"></script>
-<script src="./index_files/quarto.js"></script>
-<script src="./index_files/popper.min.js"></script>
-<script src="./index_files/tippy.umd.min.js"></script>
-<script src="./index_files/anchor.min.js"></script>
-<link href="./index_files/tippy.css" rel="stylesheet">
-<link href="./index_files/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="./index_files/bootstrap.min.js"></script>
-<link href="./index_files/bootstrap-icons.css" rel="stylesheet">
-<link href="./index_files/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="BLUE_files/libs/clipboard/clipboard.min.js"></script>
+<script src="BLUE_files/libs/quarto-html/quarto.js"></script>
+<script src="BLUE_files/libs/quarto-html/popper.min.js"></script>
+<script src="BLUE_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="BLUE_files/libs/quarto-html/anchor.min.js"></script>
+<link href="BLUE_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="BLUE_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="BLUE_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="BLUE_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="BLUE_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
-<style>.ansi-display{font-family:monospace;white-space:pre-wrap;--ansiBlack: #000000;--ansiRed: #cd3131;--ansiGreen: #00BC00;--ansiYellow: #949800;--ansiBlue: #0451a5;--ansiMagenta: #bc05bc;--ansiCyan: #0598bc;--ansiWhite: #555555;--ansiBrightBlack: #666666;--ansiBrightRed: #cd3131;--ansiBrightGreen: #14CE14;--ansiBrightYellow: #b5ba00;--ansiBrightBlue: #0451a5;--ansiBrightMagenta: #bc05bc;--ansiBrightCyan: #0598bc;--ansiBrightWhite: #a5a5a5}.dark-mode .ansi-display{--ansiBlack: #000000;--ansiRed: #cd3131;--ansiGreen: #0DBC79;--ansiYellow: #e5e510;--ansiBlue: #2472c8;--ansiMagenta: #bc3fbc;--ansiCyan: #11a8cd;--ansiWhite: #e5e5e5;--ansiBrightBlack: #666666;--ansiBrightRed: #f14c4c;--ansiBrightGreen: #23d18b;--ansiBrightYellow: #f5f543;--ansiBrightBlue: #3b8eea;--ansiBrightMagenta: #d670d6;--ansiBrightCyan: #29b8db;--ansiBrightWhite: #e5e5e5}@keyframes ansi-displaly-run-blink{50%{opacity:0}}.fui-FluentProvider h2{border-bottom:none;padding-bottom:0}</style><style data-make-styles-bucket="d" data-priority="0"></style><style id="fui-FluentProviderr0"></style></head>
+</head>
 
-<body class="quarto-light" data-tabster="{&quot;root&quot;:{}}">
+<body>
 
-<i tabindex="0" role="none" data-tabster-dummy="" aria-hidden="true" style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"></i><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
   <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="http://localhost:5800/#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="http://localhost:5800/#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="http://localhost:5800/#design-matrix" id="toc-design-matrix" class="nav-link" data-scroll-target="#design-matrix">Design Matrix</a></li>
-  <li><a href="http://localhost:5800/#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="http://localhost:5800/#stan" id="toc-stan" class="nav-link" data-scroll-target="#stan">STAN</a>
+  <li><a href="#design-matrix" id="toc-design-matrix" class="nav-link" data-scroll-target="#design-matrix">Design Matrix</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#stan" id="toc-stan" class="nav-link" data-scroll-target="#stan">STAN</a>
   <ul class="collapse">
-  <li><a href="http://localhost:5800/#parameter-architecture" id="toc-parameter-architecture" class="nav-link" data-scroll-target="#parameter-architecture">Parameter Architecture</a></li>
-  <li><a href="http://localhost:5800/#prior-choices" id="toc-prior-choices" class="nav-link" data-scroll-target="#prior-choices">Prior Choices</a></li>
-  <li><a href="http://localhost:5800/#model-structure" id="toc-model-structure" class="nav-link" data-scroll-target="#model-structure">Model Structure</a></li>
-  <li><a href="http://localhost:5800/#computational-settings" id="toc-computational-settings" class="nav-link" data-scroll-target="#computational-settings">Computational Settings</a></li>
+  <li><a href="#parameter-architecture" id="toc-parameter-architecture" class="nav-link" data-scroll-target="#parameter-architecture">Parameter Architecture</a></li>
+  <li><a href="#prior-choices" id="toc-prior-choices" class="nav-link" data-scroll-target="#prior-choices">Prior Choices</a></li>
+  <li><a href="#model-structure" id="toc-model-structure" class="nav-link" data-scroll-target="#model-structure">Model Structure</a></li>
+  <li><a href="#computational-settings" id="toc-computational-settings" class="nav-link" data-scroll-target="#computational-settings">Computational Settings</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="http://localhost:5800/#key-advantages-of-the-bayesian-approach" id="toc-key-advantages-of-the-bayesian-approach" class="nav-link" data-scroll-target="#key-advantages-of-the-bayesian-approach">Key Advantages of the Bayesian Approach</a>
+  <li><a href="#key-advantages-of-the-bayesian-approach" id="toc-key-advantages-of-the-bayesian-approach" class="nav-link" data-scroll-target="#key-advantages-of-the-bayesian-approach">Key Advantages of the Bayesian Approach</a>
   <ul class="collapse">
-  <li><a href="http://localhost:5800/#uncertainty-quantification" id="toc-uncertainty-quantification" class="nav-link" data-scroll-target="#uncertainty-quantification">Uncertainty Quantification</a></li>
-  <li><a href="http://localhost:5800/#hierarchical-regularization" id="toc-hierarchical-regularization" class="nav-link" data-scroll-target="#hierarchical-regularization">Hierarchical Regularization</a></li>
-  <li><a href="http://localhost:5800/#opponent-adjustment" id="toc-opponent-adjustment" class="nav-link" data-scroll-target="#opponent-adjustment">Opponent Adjustment</a></li>
-  <li><a href="http://localhost:5800/#statistical-rigor" id="toc-statistical-rigor" class="nav-link" data-scroll-target="#statistical-rigor">Statistical Rigor</a></li>
+  <li><a href="#uncertainty-quantification" id="toc-uncertainty-quantification" class="nav-link" data-scroll-target="#uncertainty-quantification">Uncertainty Quantification</a></li>
+  <li><a href="#hierarchical-regularization" id="toc-hierarchical-regularization" class="nav-link" data-scroll-target="#hierarchical-regularization">Hierarchical Regularization</a></li>
+  <li><a href="#opponent-adjustment" id="toc-opponent-adjustment" class="nav-link" data-scroll-target="#opponent-adjustment">Opponent Adjustment</a></li>
+  <li><a href="#statistical-rigor" id="toc-statistical-rigor" class="nav-link" data-scroll-target="#statistical-rigor">Statistical Rigor</a></li>
   </ul></li>
-  <li><a href="http://localhost:5800/#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
-  <ul class="">
-  <li><a href="http://localhost:5800/#topbottom-5-by-play-type" id="toc-topbottom-5-by-play-type" class="nav-link" data-scroll-target="#topbottom-5-by-play-type">Top/Bottom 5 by play type</a></li>
-  <li><a href="http://localhost:5800/#conference-rankings-by-play-type" id="toc-conference-rankings-by-play-type" class="nav-link" data-scroll-target="#conference-rankings-by-play-type">Conference Rankings by play type</a>
-  <ul class="">
-  <li><a href="http://localhost:5800/#big-ten" id="toc-big-ten" class="nav-link" data-scroll-target="#big-ten">Big Ten</a></li>
-  <li><a href="http://localhost:5800/#sec" id="toc-sec" class="nav-link" data-scroll-target="#sec">SEC</a></li>
-  <li><a href="http://localhost:5800/#big-12" id="toc-big-12" class="nav-link active" data-scroll-target="#big-12">Big 12</a></li>
-  <li><a href="http://localhost:5800/#acc" id="toc-acc" class="nav-link" data-scroll-target="#acc">ACC</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="http://localhost:5800/#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
-  <li><a href="http://localhost:5800/#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a>
+  <li><a href="#topbottom-5-by-play-type" id="toc-topbottom-5-by-play-type" class="nav-link" data-scroll-target="#topbottom-5-by-play-type">Top/Bottom 5 by play type</a></li>
+  <li><a href="#conference-rankings-by-play-type" id="toc-conference-rankings-by-play-type" class="nav-link" data-scroll-target="#conference-rankings-by-play-type">Conference Rankings by play type</a>
   <ul class="collapse">
-  <li><a href="http://localhost:5800/#computational-intensity" id="toc-computational-intensity" class="nav-link" data-scroll-target="#computational-intensity">Computational Intensity</a></li>
-  <li><a href="http://localhost:5800/#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions">Model Assumptions</a></li>
-  <li><a href="http://localhost:5800/#interpretability" id="toc-interpretability" class="nav-link" data-scroll-target="#interpretability">Interpretability</a></li>
+  <li><a href="#big-ten" id="toc-big-ten" class="nav-link" data-scroll-target="#big-ten">Big Ten</a></li>
+  <li><a href="#sec" id="toc-sec" class="nav-link" data-scroll-target="#sec">SEC</a></li>
+  <li><a href="#big-12" id="toc-big-12" class="nav-link" data-scroll-target="#big-12">Big 12</a></li>
+  <li><a href="#acc" id="toc-acc" class="nav-link" data-scroll-target="#acc">ACC</a></li>
   </ul></li>
-  <li><a href="http://localhost:5800/#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a>
   <ul class="collapse">
-  <li><a href="http://localhost:5800/#epa-model" id="toc-epa-model" class="nav-link" data-scroll-target="#epa-model">EPA Model</a></li>
-  <li><a href="http://localhost:5800/#season-over-season-temporal-modeling" id="toc-season-over-season-temporal-modeling" class="nav-link" data-scroll-target="#season-over-season-temporal-modeling">Season-over-season Temporal Modeling</a></li>
-  <li><a href="http://localhost:5800/#situational-contexts" id="toc-situational-contexts" class="nav-link" data-scroll-target="#situational-contexts">Situational Contexts</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a>
+  <ul class="collapse">
+  <li><a href="#computational-intensity" id="toc-computational-intensity" class="nav-link" data-scroll-target="#computational-intensity">Computational Intensity</a></li>
+  <li><a href="#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions">Model Assumptions</a></li>
+  <li><a href="#interpretability" id="toc-interpretability" class="nav-link" data-scroll-target="#interpretability">Interpretability</a></li>
+  </ul></li>
+  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a>
+  <ul class="collapse">
+  <li><a href="#epa-model" id="toc-epa-model" class="nav-link" data-scroll-target="#epa-model">EPA Model</a></li>
+  <li><a href="#season-over-season-temporal-modeling" id="toc-season-over-season-temporal-modeling" class="nav-link" data-scroll-target="#season-over-season-temporal-modeling">Season-over-season Temporal Modeling</a></li>
+  <li><a href="#situational-contexts" id="toc-situational-contexts" class="nav-link" data-scroll-target="#situational-contexts">Situational Contexts</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="http://localhost:5800/#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="http://localhost:5800/#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
   </ul>
 </nav>
 </div>
@@ -132,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="methods" class="level1">
 <h1>Methods</h1>
 <section id="design-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="design-matrix">Design Matrix<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#design-matrix" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="design-matrix">Design Matrix</h2>
 <p>The core framework for this analysis implements a similar framework to the popular advanced NBA statistic <a href="https://supermariogiacomazzo.github.io/STOR538_WEBSITE/Articles/Basketball/Basketball_Sill.pdf">RAPM</a>. The goal of RAPM is to estimate each player’s impact on their team’s net scoring margin while they’re playing. The original ridge regression approach has a key limitation of using a single global variance for all players. By calculating these player impacts through bayesian simulation in a language like <a href="https://mc-stan.org/">STAN</a>, separate variance components can be used for different groups of players.</p>
 <p>While RAPM is calculated with <a href="https://data.scorenetwork.org/basketball/nba-rapm-data.html">player combinations and stint scoring rate data</a>, the proposed football <strong>BLUE</strong> (<strong>B</strong>ayesian <strong>L</strong>earned <strong>U</strong>nit <strong>E</strong>fficiency) ratings are calculated at the play level.<br>
 The design matrix contains the columns:</p>
@@ -152,30 +151,30 @@ The design matrix contains the columns:</p>
 <p>Each row represents a play and is designated with the home team as a +1 and the away team as a -1 in the correct columns with all other columns being 0 (0s for every other team in the study not playing as well as the playing teams units who are off the field). For an explanation of basketball’s RAPM design matrix, I like <a href="https://squared2020.com/2017/09/18/deep-dive-on-regularized-adjusted-plus-minus-i-introductory-example/">this article</a> by <a href="https://x.com/squared2020">Justin Jacobs</a>.</p>
 </section>
 <section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#data" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>This study only uses games from Power 4 (+ Notre Dame) matchups since they contain a much smaller proportion of second and third string snaps than matchups between levels.</p>
 <p>The data itself originally comes from the <a href="https://cfbfastr.sportsdataverse.org/">cfbfastR</a> R package.</p>
 </section>
 <section id="stan" class="level2">
-<h2 class="anchored" data-anchor-id="stan">STAN<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#stan" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="stan">STAN</h2>
 <section id="parameter-architecture" class="level3">
-<h3 class="anchored" data-anchor-id="parameter-architecture">Parameter Architecture<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#parameter-architecture" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="parameter-architecture">Parameter Architecture</h3>
 <p><strong>Unit-Specific Parameters</strong>: Separate vectors for each unit (<code>pass_offense</code>, <code>run_offense</code>, <code>pass_defense</code>, <code>run_defense</code>, <code>special_teams</code>)</p>
 <p><strong>Hierarchical Variances</strong>: Individual <code>sigma_</code> parameters for each unit type to allow unit-specific shrinkage.</p>
 <p><strong>Positivity Constraints</strong>: <code>&lt;lower=0&gt;</code> variances are strictly positive.</p>
 </section>
 <section id="prior-choices" class="level3">
-<h3 class="anchored" data-anchor-id="prior-choices">Prior Choices<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#prior-choices" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="prior-choices">Prior Choices</h3>
 <p><strong>Zero-Centered Normals</strong>: <code>normal(0, sigma_unit)</code> priors for team effects ensure shrinks teams toward population mean.</p>
 <p><strong>Half-Cauchy Variances</strong>: <code>cauchy(0, 2.5)</code> priors for unit variances and <code>cauchy(0, 5)</code> for residual provide weakly informative regularization with heavy tails.</p>
 </section>
 <section id="model-structure" class="level3">
-<h3 class="anchored" data-anchor-id="model-structure">Model Structure<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#model-structure" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="model-structure">Model Structure</h3>
 <p><strong>Additive Effects</strong>: Expected EPA = Offense + Defense components following established RAPM methodology.</p>
 <p><strong>Special Teams Exception</strong>: Uses subtraction (<code>team_A - team_B</code>) rather than separate offense/defense parameters for conceptual clarity.</p>
 </section>
 <section id="computational-settings" class="level3">
-<h3 class="anchored" data-anchor-id="computational-settings">Computational Settings<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#computational-settings" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="computational-settings">Computational Settings</h3>
 <p><strong>Conservative MCMC</strong>: <code>adapt_delta=0.95</code>, <code>max_treedepth=12</code>, long warmup for robust convergence with complex hierarchical structure.</p>
 <p><strong>Multiple Chains</strong>: 4 chains with 10,000 iterations (5,000 warmup) for reliable convergence diagnostics and effective sample sizes.</p>
 </section>
@@ -184,22 +183,22 @@ The design matrix contains the columns:</p>
 <section id="key-advantages-of-the-bayesian-approach" class="level1">
 <h1>Key Advantages of the Bayesian Approach</h1>
 <section id="uncertainty-quantification" class="level2">
-<h2 class="anchored" data-anchor-id="uncertainty-quantification">Uncertainty Quantification<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#uncertainty-quantification" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="uncertainty-quantification">Uncertainty Quantification</h2>
 <p>Unlike point estimates from traditional rankings, the Bayesian approach provides:</p>
 <p>Credible Intervals: 50% confidence ranges for each team’s rating Probabilistic Rankings: Ability to calculate probability that Team A’s unit is better than Team B’s unit Uncertainty Visualization: Can visualize an estimate of the probability distribution function</p>
 </section>
 <section id="hierarchical-regularization" class="level2">
-<h2 class="anchored" data-anchor-id="hierarchical-regularization">Hierarchical Regularization<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#hierarchical-regularization" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="hierarchical-regularization">Hierarchical Regularization</h2>
 <p>The Bayesian framework naturally handles the small sample size problem through:</p>
 <p>Adaptive Regularization: The model learns appropriate shrinkage levels from the data Borrowing Strength: Information from all teams informs individual estimates</p>
 </section>
 <section id="opponent-adjustment" class="level2">
-<h2 class="anchored" data-anchor-id="opponent-adjustment">Opponent Adjustment<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#opponent-adjustment" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="opponent-adjustment">Opponent Adjustment</h2>
 <p>The BLUE framework automatically adjusts for strength of schedule by:</p>
 <p>Simultaneous Estimation: All team ratings estimated together in one model Opponent Quality: Each performance is evaluated relative to opponent strength Transitive Relationships: Indirect comparisons through common opponents</p>
 </section>
 <section id="statistical-rigor" class="level2">
-<h2 class="anchored" data-anchor-id="statistical-rigor">Statistical Rigor<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#statistical-rigor" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="statistical-rigor">Statistical Rigor</h2>
 <p>The Bayesian approach provides:</p>
 <p>Model Diagnostics: Convergence checks and posterior predictive validation Principled Inference: All conclusions based on probability distributions Reproducible Results: Full specification of assumptions and methods</p>
 </section>
@@ -208,12 +207,12 @@ The design matrix contains the columns:</p>
 <h1>Results</h1>
 <p>The output rankings pass the smell test! Note the two inner black lines indicate 25th and 75th percentile estimates for the true efficiency (EPA/play) of each team’s respective unit.</p>
 <section id="topbottom-5-by-play-type" class="level2">
-<h2 class="anchored" data-anchor-id="topbottom-5-by-play-type">Top/Bottom 5 by play type<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#topbottom-5-by-play-type" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="topbottom-5-by-play-type">Top/Bottom 5 by play type</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_top_bottom_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -222,7 +221,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_top_bottom_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -231,7 +230,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_top_bottom_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -240,21 +239,21 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_top_bottom_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="conference-rankings-by-play-type" class="level2">
-<h2 class="anchored" data-anchor-id="conference-rankings-by-play-type">Conference Rankings by play type<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#conference-rankings-by-play-type" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="conference-rankings-by-play-type">Conference Rankings by play type</h2>
 <section id="big-ten" class="level3">
-<h3 class="anchored" data-anchor-id="big-ten">Big Ten<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#big-ten" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="big-ten">Big Ten</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_ten_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -263,7 +262,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_ten_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -272,7 +271,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_ten_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -281,19 +280,19 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_ten_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="sec" class="level3">
-<h3 class="anchored" data-anchor-id="sec">SEC<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#sec" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="sec">SEC</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_sec_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -302,7 +301,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_sec_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -311,7 +310,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_sec_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -320,19 +319,19 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_sec_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="big-12" class="level3">
-<h3 class="anchored" data-anchor-id="big-12">Big 12<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#big-12" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="big-12">Big 12</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_12_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -341,7 +340,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_12_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -350,7 +349,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_12_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -359,19 +358,19 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_big_12_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="acc" class="level3">
-<h3 class="anchored" data-anchor-id="acc">ACC<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#acc" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="acc">ACC</h3>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_acc_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -380,7 +379,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_acc_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -389,7 +388,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_acc_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -398,7 +397,7 @@ The design matrix contains the columns:</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./index_files/cfb_conf_acc_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -409,35 +408,35 @@ The design matrix contains the columns:</p>
 <section id="discussion" class="level1">
 <h1>Discussion</h1>
 <section id="limitations" class="level2">
-<h2 class="anchored" data-anchor-id="limitations">Limitations<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#limitations" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
 <section id="computational-intensity" class="level3">
-<h3 class="anchored" data-anchor-id="computational-intensity">Computational Intensity<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#computational-intensity" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="computational-intensity">Computational Intensity</h3>
 <p>Bayesian inference requires significant computational resources</p>
 <p>Takes over 1 hour to run on M3 MacBook Pro with 4 cores parallel processing Memory requirements for storing posterior samples Need parallel processing capabilities</p>
 </section>
 <section id="model-assumptions" class="level3">
-<h3 class="anchored" data-anchor-id="model-assumptions">Model Assumptions<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#model-assumptions" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="model-assumptions">Model Assumptions</h3>
 <p>The approach assumes:</p>
 <p>Linear additive effects of offensive and defensive units EPA model from cfbfastR package is accurate (it’s not but it’s probably still better than yards) Stationary team performancce throughout season (ignores injuries etc)</p>
 </section>
 <section id="interpretability" class="level3">
-<h3 class="anchored" data-anchor-id="interpretability">Interpretability<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#interpretability" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="interpretability">Interpretability</h3>
 <p>While statistically sophisticated, the approach may be:</p>
 <p>Difficult to explain to casual fans More complex than traditional rankings</p>
 </section>
 </section>
 <section id="future-work" class="level2">
-<h2 class="anchored" data-anchor-id="future-work">Future Work<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#future-work" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<h2 class="anchored" data-anchor-id="future-work">Future Work</h2>
 <section id="epa-model" class="level3">
-<h3 class="anchored" data-anchor-id="epa-model">EPA Model<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#epa-model" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="epa-model">EPA Model</h3>
 <p>Someone PLEASE make a better public NCAAF EPA model. <a href="https://arxiv.org/pdf/1802.00998">This paper by Ron Yurko</a> could be effectively adapted to CFB play by play data already available within cfbfastR. The <a href="https://opensourcefootball.com/posts/2020-09-28-nflfastr-ep-wp-and-cp-models/">current nflfastR model</a> uses an <a href="https://xgboost.readthedocs.io/en/stable/tutorials/model.html">xgboost</a> model and it would really make me so happy for someone to do this in public.</p>
 </section>
 <section id="season-over-season-temporal-modeling" class="level3">
-<h3 class="anchored" data-anchor-id="season-over-season-temporal-modeling">Season-over-season Temporal Modeling<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#season-over-season-temporal-modeling" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="season-over-season-temporal-modeling">Season-over-season Temporal Modeling</h3>
 <p>Incorporating time-varying effects to account for season over season change in team strengths. <a href="https://statsbylopez.netlify.app/post/a-state-space-model-to-evaluate-sports-teams/">This 27 year old paper</a> by Mark Glickman and Hal Stern would be a good place to start. College football has even more team turnover than pro football especially <a href="https://en.wikipedia.org/wiki/NCAA_transfer_portal">these days</a>. There is also a plethora of player evaluation data on the internet that could be incorporated into a model.</p>
 </section>
 <section id="situational-contexts" class="level3">
-<h3 class="anchored" data-anchor-id="situational-contexts">Situational Contexts<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:5800/#situational-contexts" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h3>
+<h3 class="anchored" data-anchor-id="situational-contexts">Situational Contexts</h3>
 <p>Expanding the model to include:</p>
 <p>Down and distance effects</p>
 <p>Field position impacts (different teams may excel in shorter yardage situations etc)</p>
@@ -459,7 +458,7 @@ The design matrix contains the columns:</p>
 <ul>
 <li><p>YOU for taking the time to click on this.</p></li>
 <li><p>the creators of STAN</p></li>
-<li><p>makers of all the packages I used like <a href="http://localhost:5800/">cfbfastR</a>, <a href="https://cran.r-project.org/web/packages/teamcolors/index.html">teamcolors</a></p></li>
+<li><p>makers of all the packages I used like <a href="">cfbfastR</a>, <a href="https://cran.r-project.org/web/packages/teamcolors/index.html">teamcolors</a></p></li>
 <li><p><a href="https://www.stat.cmu.edu/~ryurko/">Ron Yurko</a> for encouraging me to write this and teaching me STAN</p></li>
 <li><p><a href="https://www.youtube.com/watch?v=JQfEr02Sj_w">Nicco Jacimovic</a> for helping me debug this blog post rendering and also being a beast</p></li>
 <li><p>The people who hired me for the job I start tomorrow</p></li>
@@ -889,9 +888,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-
+</body></html>
 <script>window.backupDefine = window.define; window.define = undefined;</script>
-<script type="text/javascript" src="./index_files/quarto-preview.js"></script>
+<script type="text/javascript" src="quarto-preview.js"></script>
 <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 <script type="text/javascript">
   const options = {
@@ -904,4 +903,3 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     window.QuartoPreview.init(options);
   });
 </script>
-<div><div dir="ltr" class="fui-FluentProvider fui-FluentProviderr0 ___jdtuxv0 f19n0e5 fxugw4r f1o700av fk6fouc fkhj508 figsok6 f1i3iumi"></div></div><i tabindex="0" role="none" data-tabster-dummy="" aria-hidden="true" style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"></i></body></html>
