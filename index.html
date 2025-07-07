@@ -59,9 +59,40 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#computational-settings" id="toc-computational-settings" class="nav-link" data-scroll-target="#computational-settings">Computational Settings</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#key-advantages-of-the-bayesian-approach" id="toc-key-advantages-of-the-bayesian-approach" class="nav-link" data-scroll-target="#key-advantages-of-the-bayesian-approach">Key Advantages of the Bayesian Approach</a></li>
-  <li><a href="#implementation-details" id="toc-implementation-details" class="nav-link" data-scroll-target="#implementation-details">Implementation Details</a></li>
-  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a></li>
+  <li><a href="#key-advantages-of-the-bayesian-approach" id="toc-key-advantages-of-the-bayesian-approach" class="nav-link" data-scroll-target="#key-advantages-of-the-bayesian-approach">Key Advantages of the Bayesian Approach</a>
+  <ul class="collapse">
+  <li><a href="#uncertainty-quantification" id="toc-uncertainty-quantification" class="nav-link" data-scroll-target="#uncertainty-quantification">Uncertainty Quantification</a></li>
+  <li><a href="#hierarchical-regularization" id="toc-hierarchical-regularization" class="nav-link" data-scroll-target="#hierarchical-regularization">Hierarchical Regularization</a></li>
+  <li><a href="#opponent-adjustment" id="toc-opponent-adjustment" class="nav-link" data-scroll-target="#opponent-adjustment">Opponent Adjustment</a></li>
+  <li><a href="#statistical-rigor" id="toc-statistical-rigor" class="nav-link" data-scroll-target="#statistical-rigor">Statistical Rigor</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#topbottom-5-by-play-type" id="toc-topbottom-5-by-play-type" class="nav-link" data-scroll-target="#topbottom-5-by-play-type">Top/Bottom 5 by play type</a></li>
+  <li><a href="#conference-rankings-by-play-type" id="toc-conference-rankings-by-play-type" class="nav-link" data-scroll-target="#conference-rankings-by-play-type">Conference Rankings by play type</a>
+  <ul class="collapse">
+  <li><a href="#big-ten" id="toc-big-ten" class="nav-link" data-scroll-target="#big-ten">Big Ten</a></li>
+  <li><a href="#sec" id="toc-sec" class="nav-link" data-scroll-target="#sec">SEC</a></li>
+  <li><a href="#big-12" id="toc-big-12" class="nav-link" data-scroll-target="#big-12">Big 12</a></li>
+  <li><a href="#acc" id="toc-acc" class="nav-link" data-scroll-target="#acc">ACC</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a>
+  <ul class="collapse">
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a>
+  <ul class="collapse">
+  <li><a href="#computational-intensity" id="toc-computational-intensity" class="nav-link" data-scroll-target="#computational-intensity">Computational Intensity</a></li>
+  <li><a href="#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions">Model Assumptions</a></li>
+  <li><a href="#interpretability" id="toc-interpretability" class="nav-link" data-scroll-target="#interpretability">Interpretability</a></li>
+  </ul></li>
+  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a>
+  <ul class="collapse">
+  <li><a href="#epa-model" id="toc-epa-model" class="nav-link" data-scroll-target="#epa-model">EPA Model</a></li>
+  <li><a href="#season-over-season-temporal-modeling" id="toc-season-over-season-temporal-modeling" class="nav-link" data-scroll-target="#season-over-season-temporal-modeling">Season-over-season Temporal Modeling</a></li>
+  <li><a href="#situational-contexts" id="toc-situational-contexts" class="nav-link" data-scroll-target="#situational-contexts">Situational Contexts</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul>
 </nav>
 </div>
@@ -101,12 +132,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="design-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="design-matrix">Design Matrix</h2>
 <p>The core framework for this analysis implements a similar framework to the popular advanced NBA statistic <a href="https://supermariogiacomazzo.github.io/STOR538_WEBSITE/Articles/Basketball/Basketball_Sill.pdf">RAPM</a>. The goal of RAPM is to estimate each player’s impact on their team’s net scoring margin while they’re playing. The original ridge regression approach has a key limitation of using a single global variance for all players. By calculating these player impacts through bayesian simulation in a language like <a href="https://mc-stan.org/">STAN</a>, separate variance components can be used for different groups of players.</p>
-<p>While RAPM is calculated with <a href="https://data.scorenetwork.org/basketball/nba-rapm-data.html">player combinations and stint scoring rate data</a>, the proposed football BLUE (Bayesian Learned Unit Efficiency) ratings are calculated at the play level.<br>
+<p>While RAPM is calculated with <a href="https://data.scorenetwork.org/basketball/nba-rapm-data.html">player combinations and stint scoring rate data</a>, the proposed football <strong>BLUE</strong> (<strong>B</strong>ayesian <strong>L</strong>earned <strong>U</strong>nit <strong>E</strong>fficiency) ratings are calculated at the play level.<br>
 The design matrix contains the columns:</p>
 <p>The response variable Y</p>
 <ul>
-<li><a href="https://www.the33rdteam.com/epa-explained/">Expected Points Added</a> (EPA)</li>
+<li><a href="https://www.the33rdteam.com/epa-explained/">Expected Points Added</a> (EPA). EPA was chosen over yards to measure team efficiency since it is:</li>
 </ul>
+<p><strong>Context Aware</strong>: Accounts for field position, down, and distance</p>
+<p><strong>Predictive</strong>: Stronger correlation with future performance</p>
+<p><strong>Granular</strong>: Available for every play, not just drives or games</p>
 <p>5 predictor terms per team</p>
 <ul>
 <li><p>Pass Offense: Team’s ability to generate EPA (Expected Points Added) through passing plays</p></li>
@@ -120,7 +154,7 @@ The design matrix contains the columns:</p>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>This study only uses games from Power 4 (+ Notre Dame) matchups since they contain a much smaller proportion of second and third string snaps than matchups between levels.</p>
-<p>The data itself originally comes from the <a href="https://cfbfastr.sportsdataverse.org/">CFBFastR</a> R package.</p>
+<p>The data itself originally comes from the <a href="https://cfbfastr.sportsdataverse.org/">cfbfastR</a> R package.</p>
 </section>
 <section id="stan" class="level2">
 <h2 class="anchored" data-anchor-id="stan">STAN</h2>
@@ -144,12 +178,227 @@ The design matrix contains the columns:</p>
 <h3 class="anchored" data-anchor-id="computational-settings">Computational Settings</h3>
 <p><strong>Conservative MCMC</strong>: <code>adapt_delta=0.95</code>, <code>max_treedepth=12</code>, long warmup for robust convergence with complex hierarchical structure.</p>
 <p><strong>Multiple Chains</strong>: 4 chains with 10,000 iterations (5,000 warmup) for reliable convergence diagnostics and effective sample sizes.</p>
+</section>
+</section>
+</section>
+<section id="key-advantages-of-the-bayesian-approach" class="level1">
+<h1>Key Advantages of the Bayesian Approach</h1>
+<section id="uncertainty-quantification" class="level2">
+<h2 class="anchored" data-anchor-id="uncertainty-quantification">Uncertainty Quantification</h2>
+<p>Unlike point estimates from traditional rankings, the Bayesian approach provides:</p>
+<p>Credible Intervals: 50% confidence ranges for each team’s rating Probabilistic Rankings: Ability to calculate probability that Team A’s unit is better than Team B’s unit Uncertainty Visualization: Can visualize an estimate of the probability distribution function</p>
+</section>
+<section id="hierarchical-regularization" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchical-regularization">Hierarchical Regularization</h2>
+<p>The Bayesian framework naturally handles the small sample size problem through:</p>
+<p>Adaptive Regularization: The model learns appropriate shrinkage levels from the data Borrowing Strength: Information from all teams informs individual estimates</p>
+</section>
+<section id="opponent-adjustment" class="level2">
+<h2 class="anchored" data-anchor-id="opponent-adjustment">Opponent Adjustment</h2>
+<p>The BLUE framework automatically adjusts for strength of schedule by:</p>
+<p>Simultaneous Estimation: All team ratings estimated together in one model Opponent Quality: Each performance is evaluated relative to opponent strength Transitive Relationships: Indirect comparisons through common opponents</p>
+</section>
+<section id="statistical-rigor" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-rigor">Statistical Rigor</h2>
+<p>The Bayesian approach provides:</p>
+<p>Model Diagnostics: Convergence checks and posterior predictive validation Principled Inference: All conclusions based on probability distributions Reproducible Results: Full specification of assumptions and methods</p>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p>The output rankings pass the smell test! Note the two inner black lines indicate 25th and 75th percentile estimates for the true efficiency (EPA/play) of each team’s respective unit.</p>
+<section id="topbottom-5-by-play-type" class="level2">
+<h2 class="anchored" data-anchor-id="topbottom-5-by-play-type">Top/Bottom 5 by play type</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_defense.png" class="img-fluid figure-img"></p>
-<figcaption>Structural model diagram showing the pathway from pass attempt to outcome prediction</figcaption>
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_top_bottom_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conference-rankings-by-play-type" class="level2">
+<h2 class="anchored" data-anchor-id="conference-rankings-by-play-type">Conference Rankings by play type</h2>
+<section id="big-ten" class="level3">
+<h3 class="anchored" data-anchor-id="big-ten">Big Ten</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_ten_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec" class="level3">
+<h3 class="anchored" data-anchor-id="sec">SEC</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_sec_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="big-12" class="level3">
+<h3 class="anchored" data-anchor-id="big-12">Big 12</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_big_12_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="acc" class="level3">
+<h3 class="anchored" data-anchor-id="acc">ACC</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_offense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_pass_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/lauerjames/BLUE/main/figures/cfb_conf_acc_run_defense.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 </div>
@@ -157,14 +406,64 @@ The design matrix contains the columns:</p>
 </section>
 </section>
 </section>
-<section id="key-advantages-of-the-bayesian-approach" class="level1">
-<h1>Key Advantages of the Bayesian Approach</h1>
+<section id="discussion" class="level1">
+<h1>Discussion</h1>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<section id="computational-intensity" class="level3">
+<h3 class="anchored" data-anchor-id="computational-intensity">Computational Intensity</h3>
+<p>Bayesian inference requires significant computational resources</p>
+<p>Takes over 1 hour to run on M3 MacBook Pro with 4 cores parallel processing Memory requirements for storing posterior samples Need parallel processing capabilities</p>
 </section>
-<section id="implementation-details" class="level1">
-<h1>Implementation Details</h1>
+<section id="model-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="model-assumptions">Model Assumptions</h3>
+<p>The approach assumes:</p>
+<p>Linear additive effects of offensive and defensive units EPA model from cfbfastR package is accurate (it’s not but it’s probably still better than yards) Stationary team performancce throughout season (ignores injuries etc)</p>
 </section>
-<section id="future-work" class="level1">
-<h1>Future Work</h1>
+<section id="interpretability" class="level3">
+<h3 class="anchored" data-anchor-id="interpretability">Interpretability</h3>
+<p>While statistically sophisticated, the approach may be:</p>
+<p>Difficult to explain to casual fans More complex than traditional rankings</p>
+</section>
+</section>
+<section id="future-work" class="level2">
+<h2 class="anchored" data-anchor-id="future-work">Future Work</h2>
+<section id="epa-model" class="level3">
+<h3 class="anchored" data-anchor-id="epa-model">EPA Model</h3>
+<p>Someone PLEASE make a better public NCAAF EPA model. <a href="https://arxiv.org/pdf/1802.00998">This paper by Ron Yurko</a> could be effectively adapted to CFB play by play data already available within cfbfastR. The <a href="https://opensourcefootball.com/posts/2020-09-28-nflfastr-ep-wp-and-cp-models/">current nflfastR model</a> uses an <a href="https://xgboost.readthedocs.io/en/stable/tutorials/model.html">xgboost</a> model and it would really make me so happy for someone to do this in public.</p>
+</section>
+<section id="season-over-season-temporal-modeling" class="level3">
+<h3 class="anchored" data-anchor-id="season-over-season-temporal-modeling">Season-over-season Temporal Modeling</h3>
+<p>Incorporating time-varying effects to account for season over season change in team strengths. <a href="https://statsbylopez.netlify.app/post/a-state-space-model-to-evaluate-sports-teams/">This 27 year old paper</a> by Mark Glickman and Hal Stern would be a good place to start. College football has even more team turnover than pro football especially <a href="https://en.wikipedia.org/wiki/NCAA_transfer_portal">these days</a>. There is also a plethora of player evaluation data on the internet that could be incorporated into a model.</p>
+</section>
+<section id="situational-contexts" class="level3">
+<h3 class="anchored" data-anchor-id="situational-contexts">Situational Contexts</h3>
+<p>Expanding the model to include:</p>
+<p>Down and distance effects</p>
+<p>Field position impacts (different teams may excel in shorter yardage situations etc)</p>
+<p>Score differential influences (teams often sit starters in blowouts etc so maybe weight those snaps less)</p>
+<p>Weather and environmental factors (I would love to see the Gophers host a playoff game)</p>
+<ol start="3" type="1">
+<li>Player-Level Analysis</li>
+</ol>
+<p>Extending to individual player evaluation:</p>
+<p>Quarterback-specific passing ratings</p>
+<p>Running back effectiveness metrics (both player specific and fatigue specific metrics could be cool)</p>
+<p>Defensive player impact measurements</p>
+</section>
+</section>
+</section>
+<section id="acknowledgements" class="level1">
+<h1>Acknowledgements</h1>
+<p>Thanks to:</p>
+<ul>
+<li><p>YOU for taking the time to click on this.</p></li>
+<li><p>the creators of STAN</p></li>
+<li><p>makers of all the packages I used like <a href="">cfbfastR</a>, <a href="https://cran.r-project.org/web/packages/teamcolors/index.html">teamcolors</a></p></li>
+<li><p><a href="https://www.stat.cmu.edu/~ryurko/">Ron Yurko</a> for encouraging me to write this and teaching me STAN</p></li>
+<li><p><a href="https://www.youtube.com/watch?v=JQfEr02Sj_w">Nicco Jacimovic</a> for helping me debug this blog post rendering and also being a beast</p></li>
+<li><p>The people who hired me for the job I start tomorrow</p></li>
+</ul>
 </section>
 
 </main>
