@@ -380,93 +380,6 @@ extract_team_ratings <- function(fit, rapm_data, season) {
   return(ratings)
 }
 
-# Function to visualize ratings with uncertainty
-visualize_bayesian_ratings <- function(ratings, metric = "overall_rating", top_n = 25, 
-                                       title = "Overall Team Ratings") {
-  cat("Visualizing", metric, "ratings...\n")
-  
-  # Sort and select top and bottom teams
-  ratings_sorted <- ratings %>%
-    arrange(desc(.data[[metric]]))
-  
-  top_teams <- head(ratings_sorted, top_n)
-  bottom_teams <- tail(ratings_sorted, top_n)
-  
-  # Combine and remove duplicates
-  viz_teams <- bind_rows(top_teams, bottom_teams) %>% 
-    distinct(team, .keep_all = TRUE)
-  
-  # Define error bars based on metric
-  lower_col <- paste0(metric, "_lower")
-  upper_col <- paste0(metric, "_upper")
-  
-  # Create visualization with error bars
-  p <- ggplot(viz_teams, aes(x = reorder(team, .data[[metric]]), y = .data[[metric]])) +
-    geom_point(size = 3, aes(color = .data[[metric]] > 0)) +
-    geom_errorbar(aes(ymin = .data[[lower_col]], ymax = .data[[upper_col]],
-                      color = .data[[metric]] > 0), width = 0.2) +
-    coord_flip() +
-    labs(
-      title = title,
-      subtitle = paste("Season:", unique(ratings$season), "- With 95% Credible Intervals"),
-      x = "Team",
-      y = "Rating (EPA per Play)"
-    ) +
-    theme_minimal() +
-    scale_color_manual(values = c("red", "blue"), guide = "none") +
-    geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5)
-  
-  # Print and return the plot
-  print(p)
-  return(p)
-}
-
-# Function to compare multiple components of team performance
-visualize_team_components <- function(ratings, team_name) {
-  cat("Visualizing components for", team_name, "...\n")
-  
-  # Filter for the specific team
-  team_data <- ratings %>%
-    filter(team == team_name)
-  
-  if (nrow(team_data) == 0) {
-    stop("Team not found in ratings data")
-  }
-  
-  # Prepare data for plotting
-  components <- data.frame(
-    component = c("Pass Offense", "Run Offense", "Pass Defense", "Run Defense", "Special Teams"),
-    rating = c(team_data$pass_offense, team_data$run_offense, 
-               team_data$pass_defense, team_data$run_defense, 
-               team_data$special_teams),
-    lower = c(team_data$pass_offense_lower, team_data$run_offense_lower, 
-              team_data$pass_defense_lower, team_data$run_defense_lower, 
-              team_data$special_teams_lower),
-    upper = c(team_data$pass_offense_upper, team_data$run_offense_upper, 
-              team_data$pass_defense_upper, team_data$run_defense_upper, 
-              team_data$special_teams_upper),
-    category = c("Offense", "Offense", "Defense", "Defense", "Special")
-  )
-  
-  # Plot
-  p <- ggplot(components, aes(x = reorder(component, rating), y = rating, fill = category)) +
-    geom_col() +
-    geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) +
-    coord_flip() +
-    labs(
-      title = paste("Performance Components for", team_name),
-      subtitle = paste("Season:", unique(ratings$season)),
-      x = "Component",
-      y = "Rating (EPA per Play)",
-      fill = "Category"
-    ) +
-    theme_minimal() +
-    geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5)
-  
-  print(p)
-  return(p)
-}
-
 # Function to get RAPM ratings for a season
 get_cfb_bayesian_rapm <- function(season, conference = NULL) {
   cat("Processing season:", season, "\n")
@@ -488,7 +401,7 @@ get_cfb_bayesian_rapm <- function(season, conference = NULL) {
 }
 
 # Main execution function
-# Run the full analysis for a specific season and visualize results
+# Run the full analysis for a specific season
 analyze_season_bayesian <- function(season, conference = NULL) {
   # Get Bayesian RAPM ratings
   result <- get_cfb_bayesian_rapm(season, conference)
@@ -498,33 +411,12 @@ analyze_season_bayesian <- function(season, conference = NULL) {
   write.csv(result$ratings, output_file, row.names = FALSE)
   cat("Ratings saved to", output_file, "\n")
   
-  # Create visualizations
-  # Overall ratings
-  visualize_bayesian_ratings(result$ratings, "overall_rating", top_n = 25,
-                             title = "Overall Team Ratings")
-  
-  # Offensive ratings
-  visualize_bayesian_ratings(result$ratings, "overall_offense", top_n = 25,
-                             title = "Offensive Team Ratings")
-  
-  # Defensive ratings
-  visualize_bayesian_ratings(result$ratings, "overall_defense", top_n = 25,
-                             title = "Defensive Team Ratings")
-  
-  # Special teams ratings
-  visualize_bayesian_ratings(result$ratings, "special_teams", top_n = 25,
-                             title = "Special Teams Ratings")
-  
   # Look at top teams' components
   top_teams <- result$ratings %>%
     arrange(desc(overall_rating)) %>%
     head(5) %>%
     pull(team)
-  
-  for (team in top_teams) {
-    visualize_team_components(result$ratings, team)
-  }
-  
+
   # Check model diagnostics
   print(summary(result$fit, pars = c("sigma_pass_off", "sigma_run_off", 
                                      "sigma_pass_def", "sigma_run_def", 
@@ -568,130 +460,10 @@ compare_models <- function(bayesian_ratings, ridge_ratings) {
 # Analyze a single season with the Bayesian model
 # result_2024 <- analyze_season_bayesian(2024)
 
-# Run the Bayesian analysis for multiple seasons
-run_multiple_seasons_bayesian <- function(seasons, conference = NULL) {
-  all_results <- list()
-  all_ratings <- list()
-  
-  for (season in seasons) {
-    cat("\n========== Processing season", season, "==========\n")
-    result <- get_cfb_bayesian_rapm(season, conference)
-    all_results[[as.character(season)]] <- result
-    all_ratings[[as.character(season)]] <- result$ratings
-  }
-  
-  combined_ratings <- do.call(rbind, all_ratings)
-  
-  # Save combined ratings
-  output_file <- paste0("cfb_bayesian_rapm_ratings_", min(seasons), "_", max(seasons), ".csv")
-  write.csv(combined_ratings, output_file, row.names = FALSE)
-  cat("Combined ratings saved to", output_file, "\n")
-  
-  return(list(
-    all_results = all_results,
-    combined_ratings = combined_ratings
-  ))
-}
 
 # Example usage:
 # For a single season analysis:
 result_2024 <- analyze_season_bayesian(2024)
-
-
-
-# Modified visualize_bayesian_ratings function for individual pass/rush components
-visualize_component_ratings <- function(ratings, metric, top_n = 25, 
-                                        title, flip_direction = FALSE) {
-  cat("Visualizing", metric, "ratings...\n")
-  
-  # Sort and select top and bottom teams
-  # If flip_direction is TRUE (for defense), we'll put negative values at the top
-  if(flip_direction) {
-    ratings_sorted <- ratings %>%
-      arrange(.data[[metric]]) # For defense, lower is better, so no desc()
-  } else {
-    ratings_sorted <- ratings %>%
-      arrange(desc(.data[[metric]])) # For offense, higher is better
-  }
-  
-  top_teams <- head(ratings_sorted, top_n)
-  bottom_teams <- tail(ratings_sorted, top_n)
-  
-  # Combine and remove duplicates
-  viz_teams <- bind_rows(top_teams, bottom_teams) %>% 
-    distinct(team, .keep_all = TRUE)
-  
-  # Define error bars based on metric
-  lower_col <- paste0(metric, "_lower")
-  upper_col <- paste0(metric, "_upper")
-  
-  # Create visualization with error bars
-  p <- ggplot(viz_teams, aes(x = reorder(team, .data[[metric]], FUN = if(flip_direction) function(x) -x else identity), 
-                             y = .data[[metric]])) +
-    geom_point(size = 3, aes(color = if(flip_direction) .data[[metric]] < 0 else .data[[metric]] > 0)) +
-    geom_errorbar(aes(ymin = .data[[lower_col]], ymax = .data[[upper_col]],
-                      color = if(flip_direction) .data[[metric]] < 0 else .data[[metric]] > 0), 
-                  width = 0.2) +
-    coord_flip() +
-    labs(
-      title = title,
-      subtitle = paste("Season:", unique(ratings$season), "- With 95% Credible Intervals"),
-      x = "Team",
-      y = "Rating (EPA per Play)"
-    ) +
-    theme_minimal() +
-    scale_color_manual(values = c("red", "blue"), guide = "none") +
-    geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5)
-  
-  # Print and return the plot
-  print(p)
-  return(p)
-}
-
-# Usage of the modified function:
-# Assuming result_2024 has been created and has ratings component
-
-# 1. Passing Offense Ratings
-pass_offense_plot <- visualize_component_ratings(
-  result_2024$ratings, 
-  "pass_offense", 
-  top_n = 25,
-  title = "Passing Offense Ratings", 
-  flip_direction = FALSE
-)
-
-# 2. Rushing Offense Ratings
-rush_offense_plot <- visualize_component_ratings(
-  result_2024$ratings, 
-  "run_offense", 
-  top_n = 25,
-  title = "Rushing Offense Ratings", 
-  flip_direction = FALSE
-)
-
-# 3. Passing Defense Ratings (flip direction)
-pass_defense_plot <- visualize_component_ratings(
-  result_2024$ratings, 
-  "pass_defense", 
-  top_n = 25,
-  title = "Passing Defense Ratings", 
-  flip_direction = TRUE
-)
-
-# 4. Rushing Defense Ratings (flip direction)
-rush_defense_plot <- visualize_component_ratings(
-  result_2024$ratings, 
-  "run_defense", 
-  top_n = 25,
-  title = "Rushing Defense Ratings", 
-  flip_direction = TRUE
-)
-
-# Save plots if needed
-ggsave("pass_offense_ratings.png", pass_offense_plot, width = 10, height = 12)
-ggsave("rush_offense_ratings.png", rush_offense_plot, width = 10, height = 12)
-ggsave("pass_defense_ratings.png", pass_defense_plot, width = 10, height = 12)
-ggsave("rush_defense_ratings.png", rush_defense_plot, width = 10, height = 12)
 
 
 
