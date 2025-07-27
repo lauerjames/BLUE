@@ -414,14 +414,6 @@ result_2024 <- analyze_nfl_season_bayesian(2024)
 # Example usage for specific weeks (e.g., first 10 weeks)
 # result_2024_partial <- analyze_nfl_season_bayesian(2024, weeks = 1:10)
 
-# Create individual component plots
-# pass_offense_plot <- visualize_nfl_component_ratings(
-#   result_2024$ratings, 
-#   "pass_offense", 
-#   top_n = 16,
-#   title = "NFL Passing Offense Ratings", 
-#   flip_direction = FALSE
-# )
 
 # Save results
 saved_files <- save_nfl_bayesian_results(result_2024, season = 2024)
