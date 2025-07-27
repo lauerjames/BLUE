@@ -1,4 +1,4 @@
-# College Football Bayesian RAPM Model using Stan
+# College Football Bayesian BLUE Model using Stan
 # Install and load required packages
 if (!require("cfbfastR")) install.packages("cfbfastR")
 if (!require("tidyverse")) install.packages("tidyverse")
@@ -16,8 +16,8 @@ library(bayesplot)
 options(mc.cores = parallel::detectCores())
 rstan_options(auto_write = TRUE)
 
-# Function to create RAPM matrix for a given season
-create_rapm_matrix <- function(season, conference = NULL) {
+# Function to create BLUE matrix for a given season
+create_BLUE_matrix <- function(season, conference = NULL) {
   # Fetch play-by-play data for the season
   cat("Fetching play-by-play data for season", season, "...\n")
   pbp_data <- cfbfastR::load_cfb_pbp(season)
@@ -132,8 +132,8 @@ create_rapm_matrix <- function(season, conference = NULL) {
   cat("Plays after categorization:", nrow(play_data), "\n")
   cat("Play categories distribution:", table(play_data$play_category), "\n")
   
-  # Create RAPM matrix
-  rapm_matrix <- play_data %>%
+  # Create BLUE matrix
+  BLUE_matrix <- play_data %>%
     mutate(
       # Identify teams
       offense_team = pos_team,
@@ -148,7 +148,7 @@ create_rapm_matrix <- function(season, conference = NULL) {
     )
   
   # Get unique teams
-  teams <- unique(c(unique(rapm_matrix$offense_team), unique(rapm_matrix$defense_team)))
+  teams <- unique(c(unique(BLUE_matrix$offense_team), unique(BLUE_matrix$defense_team)))
   teams <- teams[!is.na(teams)]  # Remove NA values if any
   
   cat("Number of unique teams:", length(teams), "\n")
@@ -157,7 +157,7 @@ create_rapm_matrix <- function(season, conference = NULL) {
   team_to_index <- setNames(1:length(teams), teams)
   
   # Create matrices for each component
-  rapm_data <- rapm_matrix %>%
+  BLUE_data <- BLUE_matrix %>%
     mutate(
       offense_idx = team_to_index[offense_team],
       defense_idx = team_to_index[defense_team],
@@ -170,11 +170,11 @@ create_rapm_matrix <- function(season, conference = NULL) {
   
   # Return the processed data for Stan
   return(list(
-    play_data = rapm_data,
-    epa = rapm_data$epa,
+    play_data = BLUE_data,
+    epa = BLUE_data$epa,
     teams = teams,
     n_teams = length(teams),
-    n_plays = nrow(rapm_data)
+    n_plays = nrow(BLUE_data)
   ))
 }
 
@@ -266,22 +266,22 @@ generated quantities {
 "
 
 # Fit the Stan model
-fit_bayesian_rapm <- function(rapm_data) {
+fit_bayesian_BLUE <- function(BLUE_data) {
   cat("Preparing data for Stan...\n")
   
   # Format data for Stan
   stan_data <- list(
-    n_teams = rapm_data$n_teams,
-    n_plays = rapm_data$n_plays,
-    epa = rapm_data$play_data$epa,
-    offense_idx = rapm_data$play_data$offense_idx,
-    defense_idx = rapm_data$play_data$defense_idx,
-    is_pass = rapm_data$play_data$is_pass,
-    is_run = rapm_data$play_data$is_run,
-    is_special = rapm_data$play_data$is_special
+    n_teams = BLUE_data$n_teams,
+    n_plays = BLUE_data$n_plays,
+    epa = BLUE_data$play_data$epa,
+    offense_idx = BLUE_data$play_data$offense_idx,
+    defense_idx = BLUE_data$play_data$defense_idx,
+    is_pass = BLUE_data$play_data$is_pass,
+    is_run = BLUE_data$play_data$is_run,
+    is_special = BLUE_data$play_data$is_special
   )
   
-  cat("Fitting Bayesian RAPM model...\n")
+  cat("Fitting Bayesian BLUE model...\n")
   # Fit Stan model - adjust iterations as needed for your dataset
   fit <- stan(
     model_code = stan_model_code,
@@ -297,7 +297,7 @@ fit_bayesian_rapm <- function(rapm_data) {
 }
 
 # Function to extract and organize team ratings from Stan model
-extract_team_ratings <- function(fit, rapm_data, season) {
+extract_team_ratings <- function(fit, BLUE_data, season) {
   cat("Extracting team ratings...\n")
   
   # Extract posterior samples
@@ -325,7 +325,7 @@ extract_team_ratings <- function(fit, rapm_data, season) {
   
   # Create ratings data frame
   ratings <- data.frame(
-    team = rapm_data$teams,
+    team = BLUE_data$teams,
     season = season,
     
     # Passing offense ratings
@@ -380,34 +380,34 @@ extract_team_ratings <- function(fit, rapm_data, season) {
   return(ratings)
 }
 
-# Function to get RAPM ratings for a season
-get_cfb_bayesian_rapm <- function(season, conference = NULL) {
+# Function to get BLUE ratings for a season
+get_cfb_bayesian_BLUE <- function(season, conference = NULL) {
   cat("Processing season:", season, "\n")
   
-  # Create RAPM matrix
-  rapm_data <- create_rapm_matrix(season, conference)
+  # Create BLUE matrix
+  BLUE_data <- create_BLUE_matrix(season, conference)
   
   # Fit Stan model
-  fit <- fit_bayesian_rapm(rapm_data)
+  fit <- fit_bayesian_BLUE(BLUE_data)
   
   # Extract ratings
-  ratings <- extract_team_ratings(fit, rapm_data, season)
+  ratings <- extract_team_ratings(fit, BLUE_data, season)
   
   return(list(
     fit = fit,
     ratings = ratings,
-    rapm_data = rapm_data
+    BLUE_data = BLUE_data
   ))
 }
 
 # Main execution function
 # Run the full analysis for a specific season
 analyze_season_bayesian <- function(season, conference = NULL) {
-  # Get Bayesian RAPM ratings
-  result <- get_cfb_bayesian_rapm(season, conference)
+  # Get Bayesian BLUE ratings
+  result <- get_cfb_bayesian_BLUE(season, conference)
   
   # Save ratings to CSV
-  output_file <- paste0("cfb_bayesian_rapm_ratings_", season, ".csv")
+  output_file <- paste0("cfb_bayesian_BLUE_ratings_", season, ".csv")
   write.csv(result$ratings, output_file, row.names = FALSE)
   cat("Ratings saved to", output_file, "\n")
   
@@ -426,36 +426,6 @@ analyze_season_bayesian <- function(season, conference = NULL) {
   return(result)
 }
 
-# Function to compare Bayesian RAPM with ridge regression RAPM
-compare_models <- function(bayesian_ratings, ridge_ratings) {
-  # Join the two datasets
-  comparison <- bayesian_ratings %>%
-    dplyr::select(team, season, overall_rating) %>%
-    rename(bayesian_rating = overall_rating) %>%
-    inner_join(
-      ridge_ratings %>%
-        dplyr::select(team, season, overall_epa) %>%
-        rename(ridge_rating = overall_epa),
-      by = c("team", "season")
-    )
-  
-  # Create comparison plot
-  p <- ggplot(comparison, aes(x = ridge_rating, y = bayesian_rating)) +
-    geom_point(alpha = 0.7) +
-    geom_smooth(method = "lm") +
-    geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
-    labs(
-      title = "Comparison of Bayesian RAPM vs Ridge Regression RAPM",
-      subtitle = paste("Season:", unique(comparison$season)),
-      x = "Ridge Regression RAPM Rating",
-      y = "Bayesian RAPM Rating"
-    ) +
-    theme_minimal()
-  
-  print(p)
-  return(comparison)
-}
-
 # Example usage:
 # Analyze a single season with the Bayesian model
 # result_2024 <- analyze_season_bayesian(2024)
@@ -472,7 +442,7 @@ result_2024 <- analyze_season_bayesian(2024)
 
 # Function to save Stan fit object and associated data
 save_bayesian_results <- function(result, season, prefix = "cfb_bayesian") {
-  cat("Saving Bayesian RAPM results...\n")
+  cat("Saving Bayesian BLUE results...\n")
   
   # Create filename
   timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
@@ -485,8 +455,8 @@ save_bayesian_results <- function(result, season, prefix = "cfb_bayesian") {
   
   # Save the processed data
   data_filename <- paste0(base_filename, "_data.rds")
-  saveRDS(result$rapm_data, file = data_filename)
-  cat("RAPM data saved to:", data_filename, "\n")
+  saveRDS(result$BLUE_data, file = data_filename)
+  cat("BLUE data saved to:", data_filename, "\n")
   
   # Save the extracted ratings (CSV for easy viewing)
   ratings_filename <- paste0(base_filename, "_ratings.csv")
