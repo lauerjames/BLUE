@@ -18,7 +18,7 @@ load("nfl_bayesian_2024_20250727_172824_complete.RData")
 # Then create all plots
 results <- analyze_nfl(
   fit = result_2024$fit, 
-  rapm_data = result_2024$rapm_data, 
+  BLUE_data = result_2024$BLUE_data, 
   save_plots = TRUE
 )
 
@@ -32,7 +32,7 @@ cat("- Total: 44 plots saved as PNG files\n")
 cat("\nAlternative: Create individual plots...\n")
 
 # Extract posterior samples first
-posterior_samples <- extract_nfl_posterior_samples(result_2024$fit, result_2024$rapm_data)
+posterior_samples <- extract_nfl_posterior_samples(result_2024$fit, result_2024$BLUE_data)
 
 # Create specific plots
 # Examples:
@@ -60,7 +60,7 @@ ggsave("my_favorite_nfl_plot.png",
 # result_weeks_1_10 <- analyze_nfl_season_bayesian(2024, weeks = 1:10)
 # weekly_results <- analyze_nfl(
 #   fit = result_weeks_1_10$fit,
-#   rapm_data = result_weeks_1_10$rapm_data,
+#   BLUE_data = result_weeks_1_10$BLUE_data,
 #   save_plots = TRUE
 # )
 

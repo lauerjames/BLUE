@@ -494,14 +494,14 @@ create_nfl_plots <- function(posterior_samples, save_plots = TRUE) {
 }
 
 # Function to extract posterior samples for plotting (NFL version)
-extract_nfl_posterior_samples <- function(fit, rapm_data) {
+extract_nfl_posterior_samples <- function(fit, BLUE_data) {
   cat("Extracting NFL posterior samples for visualization...\n")
   
   # Extract all posterior samples
   posterior_samples <- rstan::extract(fit)
   
   # Get team names
-  teams <- rapm_data$teams
+  teams <- BLUE_data$teams
   n_teams <- length(teams)
   
   # Convert posterior arrays to long format data frames
@@ -545,9 +545,9 @@ extract_nfl_posterior_samples <- function(fit, rapm_data) {
 }
 
 # Simple wrapper function for NFL
-analyze_nfl <- function(fit, rapm_data, save_plots = TRUE) {
+analyze_nfl <- function(fit, BLUE_data, save_plots = TRUE) {
   # Extract posterior samples
-  posterior_samples <- extract_nfl_posterior_samples(fit, rapm_data)
+  posterior_samples <- extract_nfl_posterior_samples(fit, BLUE_data)
   
   # Create plots
   plots <- create_nfl_plots(posterior_samples, save_plots)
@@ -560,7 +560,7 @@ analyze_nfl <- function(fit, rapm_data, save_plots = TRUE) {
 
 cat("NFL plotting functions loaded!\n")
 cat("Main functions:\n")
-cat("- analyze_nfl(fit, rapm_data): Run everything\n")
+cat("- analyze_nfl(fit, BLUE_data): Run everything\n")
 cat("- plot_nfl_top_bottom_teams(): Individual top/bottom plot\n")
 cat("- plot_nfl_division_rankings(): Individual division plot\n")
 cat("- plot_nfl_conference_rankings(): Individual conference plot\n")
